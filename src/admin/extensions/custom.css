@@ -1,0 +1,14 @@
+/* src/admin/extensions/custom.css */
+
+@font-face {
+    font-family: 'RobotoLightCustom'; /* Choose a unique name */
+    src: url('./fonts/Roboto-Light.ttf') format('truetype'); /* Path relative to this CSS file */
+    font-weight: 100; /* 'Thin' is often weight 100 */
+    font-style: normal;
+  }
+  
+  /* Apply the font globally */
+  body,
+  #strapi /* Target high-level elements */ {
+    font-family: 'RobotoLightCustom', Arial, sans-serif !important; /* Use your custom font name, add fallbacks */
+  }
