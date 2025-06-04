@@ -17,6 +17,7 @@ export default {
     menu: { 
       logo: Dufs_Logo,
     },
+    favicon: Dufs_Logo,
     theme: {
       light: {
         colors: {
@@ -103,8 +104,9 @@ export default {
         'app.components.LeftMenu.navbrand.workplace.subtitle': 'DUFS',
         "HomePage.header.title": "You logged in as: {name}",
         "HomePage.header.subtitle": "DUFS Blog Admin Panel",
-        "Auth.form.welcome.subtitle": "Log in to your Admin account",
-        "Auth.form.welcome.title": "Welcome to DUFS Blog!",
+        "Auth.form.welcome.subtitle": "Better Film, Better Viewers",
+        "Auth.form.welcome.title": "DUFS Blog Admin Panel",
+        "Auth.form.email.placeholder": "e.g. dhakauniversityfilmsociety@gmail.com"
       },
     }
   },
