@@ -1,0 +1,41 @@
+{
+  "collectionName": "components_blocks_featured_articles_sections",
+  "info": {
+    "displayName": "featuredArticlesSection"
+  },
+  "options": {},
+  "attributes": {
+    "limit": {
+      "type": "integer",
+      "default": 4,
+      "required": true
+    },
+    "sort": {
+      "type": "string",
+      "default": "publishedAt:desc",
+      "required": true
+    },
+    "settings": {
+      "type": "component",
+      "repeatable": false,
+      "component": "shared.section-settings"
+    },
+    "filterCategory": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::category.category"
+    },
+    "filterLanguage": {
+      "type": "enumeration",
+      "enum": [
+        "en",
+        "bn",
+        "both"
+      ],
+      "default": "both"
+    },
+    "excludeArticleIds": {
+      "type": "json"
+    }
+  }
+}

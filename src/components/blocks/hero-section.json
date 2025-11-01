@@ -1,0 +1,26 @@
+{
+  "collectionName": "components_blocks_hero_sections",
+  "info": {
+    "displayName": "heroSection"
+  },
+  "options": {},
+  "attributes": {
+    "showExcerpt": {
+      "type": "boolean",
+      "default": false
+    },
+    "overlay": {
+      "type": "boolean",
+      "default": true
+    },
+    "grayscale": {
+      "type": "boolean",
+      "default": false
+    },
+    "Settings": {
+      "type": "component",
+      "repeatable": false,
+      "component": "shared.section-settings"
+    }
+  }
+}

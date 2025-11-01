@@ -1,0 +1,58 @@
+{
+  "kind": "collectionType",
+  "collectionName": "banners",
+  "info": {
+    "singularName": "banner",
+    "pluralName": "banners",
+    "displayName": "Banner",
+    "description": "Banners and announcements for the site"
+  },
+  "options": {},
+  "pluginOptions": {},
+  "attributes": {
+    "backgroundColor": {
+      "type": "string"
+    },
+    "endDate": {
+      "type": "datetime"
+    },
+    "headline": {
+      "required": true,
+      "type": "string"
+    },
+    "headlineBn": {
+      "type": "string"
+    },
+    "isActive": {
+      "default": true,
+      "type": "boolean"
+    },
+    "postTitle": {
+      "required": true,
+      "type": "string"
+    },
+    "postTitleBn": {
+      "type": "string"
+    },
+    "postUrl": {
+      "required": true,
+      "type": "string"
+    },
+    "priority": {
+      "default": 0,
+      "type": "integer"
+    },
+    "startDate": {
+      "type": "datetime"
+    },
+    "subtitle": {
+      "type": "text"
+    },
+    "subtitleBn": {
+      "type": "text"
+    },
+    "textColor": {
+      "type": "string"
+    }
+  }
+}

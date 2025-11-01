@@ -1,0 +1,39 @@
+{
+  "collectionName": "components_blocks_articles_list_sections",
+  "info": {
+    "displayName": "articlesListSection"
+  },
+  "options": {},
+  "attributes": {
+    "category": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::category.category"
+    },
+    "language": {
+      "type": "enumeration",
+      "enum": [
+        "en",
+        "bn",
+        "both"
+      ]
+    },
+    "sort": {
+      "type": "string",
+      "default": "publishedAt:desc"
+    },
+    "limit": {
+      "type": "integer",
+      "default": 12
+    },
+    "showPagination": {
+      "type": "boolean",
+      "default": true
+    },
+    "settings": {
+      "type": "component",
+      "repeatable": true,
+      "component": "shared.section-settings"
+    }
+  }
+}

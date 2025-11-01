@@ -1,0 +1,24 @@
+{
+  "collectionName": "components_blocks_category_tabs_sections",
+  "info": {
+    "displayName": "categoryTabsSection"
+  },
+  "options": {},
+  "attributes": {
+    "categories": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::category.category"
+    },
+    "defaultCategory": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::category.category"
+    },
+    "Settings": {
+      "type": "component",
+      "repeatable": true,
+      "component": "shared.section-settings"
+    }
+  }
+}

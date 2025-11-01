@@ -1,0 +1,51 @@
+{
+  "collectionName": "components_shared_section_settings",
+  "info": {
+    "displayName": "sectionSettings"
+  },
+  "options": {},
+  "attributes": {
+    "enabled": {
+      "type": "boolean",
+      "default": true,
+      "required": true
+    },
+    "anchorId": {
+      "type": "string"
+    },
+    "spacingTop": {
+      "type": "enumeration",
+      "enum": [
+        "none",
+        "sm",
+        "md",
+        "lg",
+        "xl"
+      ],
+      "default": "md"
+    },
+    "spacingBottom": {
+      "type": "enumeration",
+      "enum": [
+        "none",
+        "sm",
+        "md",
+        "lg",
+        "xl"
+      ],
+      "default": "md"
+    },
+    "backgroundColor": {
+      "type": "string"
+    },
+    "visibility": {
+      "type": "enumeration",
+      "enum": [
+        "all",
+        "desktop",
+        "mobile"
+      ],
+      "default": "all"
+    }
+  }
+}

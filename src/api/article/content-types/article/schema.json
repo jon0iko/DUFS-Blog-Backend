@@ -1,0 +1,125 @@
+{
+  "kind": "collectionType",
+  "collectionName": "articles",
+  "info": {
+    "singularName": "article",
+    "pluralName": "articles",
+    "displayName": "Article",
+    "description": "Article content type for blog posts"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "content": {
+      "required": true,
+      "type": "richtext"
+    },
+    "contentBn": {
+      "type": "richtext"
+    },
+    "excerpt": {
+      "required": true,
+      "type": "text"
+    },
+    "excerptBn": {
+      "type": "text"
+    },
+    "featuredImage": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": [
+        "images"
+      ]
+    },
+    "gallery": {
+      "type": "media",
+      "multiple": true,
+      "required": false,
+      "allowedTypes": [
+        "images"
+      ]
+    },
+    "isEditorsPick": {
+      "default": false,
+      "type": "boolean"
+    },
+    "isFeatured": {
+      "default": false,
+      "type": "boolean"
+    },
+    "isHero": {
+      "default": false,
+      "type": "boolean"
+    },
+    "language": {
+      "default": "en",
+      "enum": [
+        "en",
+        "bn",
+        "both"
+      ],
+      "required": true,
+      "type": "enumeration"
+    },
+    "likes": {
+      "default": 0,
+      "type": "integer"
+    },
+    "metaDescription": {
+      "type": "text"
+    },
+    "metaKeywords": {
+      "type": "json"
+    },
+    "metaTitle": {
+      "type": "string"
+    },
+    "readTime": {
+      "type": "integer"
+    },
+    "slug": {
+      "required": true,
+      "targetField": "title",
+      "type": "uid"
+    },
+    "socialImage": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": [
+        "images"
+      ]
+    },
+    "storyState": {
+      "default": "published",
+      "enum": [
+        "draft",
+        "published",
+        "archived",
+        "submitted",
+        "review"
+      ],
+      "required": true,
+      "type": "enumeration"
+    },
+    "title": {
+      "required": true,
+      "type": "string"
+    },
+    "titleBn": {
+      "type": "string"
+    },
+    "viewCount": {
+      "default": 0,
+      "type": "integer"
+    },
+    "category": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::category.category"
+    }
+  }
+}

@@ -4,10 +4,11 @@
   "info": {
     "singularName": "category",
     "pluralName": "categories",
-    "displayName": "Category"
+    "displayName": "Category",
+    "description": ""
   },
   "options": {
-    "draftAndPublish": true
+    "draftAndPublish": false
   },
   "attributes": {
     "Name": {
@@ -18,14 +19,26 @@
       "type": "uid",
       "targetField": "Name"
     },
-    "Description": {
+    "color": {
+      "type": "string"
+    },
+    "description": {
       "type": "text"
     },
-    "blog_posts": {
-      "type": "relation",
-      "relation": "manyToMany",
-      "target": "api::blog-post.blog-post",
-      "mappedBy": "categories"
+    "isActive": {
+      "default": true,
+      "type": "boolean"
+    },
+    "nameEn": {
+      "required": true,
+      "type": "string"
+    },
+    "nameBn": {
+      "type": "string"
+    },
+    "sortOrder": {
+      "default": 0,
+      "type": "integer"
     }
   }
 }

@@ -1,0 +1,70 @@
+{
+  "kind": "collectionType",
+  "collectionName": "submissions",
+  "info": {
+    "singularName": "submission",
+    "pluralName": "submissions",
+    "displayName": "Submission",
+    "description": "User blog post submissions for review"
+  },
+  "options": {},
+  "pluginOptions": {},
+  "attributes": {
+    "content": {
+      "required": true,
+      "type": "richtext"
+    },
+    "excerpt": {
+      "required": true,
+      "type": "text"
+    },
+    "featuredImage": {
+      "allowedTypes": [
+        "images"
+      ],
+      "multiple": false,
+      "type": "media"
+    },
+    "language": {
+      "default": "en",
+      "enum": [
+        "en",
+        "bn",
+        "both"
+      ],
+      "required": true,
+      "type": "enumeration"
+    },
+    "reviewNotes": {
+      "type": "text"
+    },
+    "reviewedAt": {
+      "type": "datetime"
+    },
+    "slug": {
+      "required": true,
+      "targetField": "title",
+      "type": "uid"
+    },
+    "storyState": {
+      "default": "submitted",
+      "enum": [
+        "submitted",
+        "under_review",
+        "approved",
+        "rejected",
+        "published"
+      ],
+      "required": true,
+      "type": "enumeration"
+    },
+    "submittedAt": {
+      "required": true,
+      "type": "datetime"
+    },
+    "title": {
+      "required": true,
+      "type": "string"
+    }
+  }
+}

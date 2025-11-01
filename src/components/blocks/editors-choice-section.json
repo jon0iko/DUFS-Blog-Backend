@@ -1,0 +1,14 @@
+{
+  "collectionName": "components_blocks_editors_choice_sections",
+  "info": {
+    "displayName": "editorsChoiceSection"
+  },
+  "options": {},
+  "attributes": {
+    "Settings": {
+      "type": "component",
+      "repeatable": true,
+      "component": "shared.section-settings"
+    }
+  }
+}

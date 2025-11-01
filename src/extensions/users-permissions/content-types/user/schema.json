@@ -9,7 +9,7 @@
     "displayName": "User"
   },
   "options": {
-    "timestamps": true
+    "draftAndPublish": false
   },
   "attributes": {
     "username": {
@@ -76,6 +76,17 @@
       "relation": "oneToOne",
       "target": "api::comment.comment",
       "mappedBy": "users_permissions_user"
+    },
+    "Bio": {
+      "type": "richtext",
+      "maxLength": 500
+    },
+    "Avatar": {
+      "allowedTypes": [
+        "images"
+      ],
+      "type": "media",
+      "multiple": false
     }
   }
 }

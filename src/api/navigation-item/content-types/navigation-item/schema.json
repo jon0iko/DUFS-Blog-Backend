@@ -1,0 +1,41 @@
+{
+  "kind": "collectionType",
+  "collectionName": "navigation-items",
+  "info": {
+    "singularName": "navigation-item",
+    "pluralName": "navigation-items",
+    "displayName": "Navigation Item",
+    "description": "Navigation items for header menu"
+  },
+  "options": {},
+  "pluginOptions": {},
+  "attributes": {
+    "href": {
+      "required": true,
+      "type": "string"
+    },
+    "isActive": {
+      "default": true,
+      "type": "boolean"
+    },
+    "isExternal": {
+      "default": false,
+      "type": "boolean"
+    },
+    "openInNewTab": {
+      "default": false,
+      "type": "boolean"
+    },
+    "sortOrder": {
+      "default": 0,
+      "type": "integer"
+    },
+    "title": {
+      "required": true,
+      "type": "string"
+    },
+    "titleBn": {
+      "type": "string"
+    }
+  }
+}
