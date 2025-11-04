@@ -381,6 +381,7 @@ export interface ApiArticleArticle extends Struct.CollectionTypeSchema {
     draftAndPublish: true;
   };
   attributes: {
+    author: Schema.Attribute.Relation<'manyToOne', 'api::author.author'>;
     category: Schema.Attribute.Relation<'manyToOne', 'api::category.category'>;
     content: Schema.Attribute.RichText & Schema.Attribute.Required;
     contentBn: Schema.Attribute.RichText;
@@ -416,6 +417,7 @@ export interface ApiArticleArticle extends Struct.CollectionTypeSchema {
     > &
       Schema.Attribute.Required &
       Schema.Attribute.DefaultTo<'published'>;
+    tags: Schema.Attribute.Relation<'manyToMany', 'api::tag.tag'>;
     title: Schema.Attribute.String & Schema.Attribute.Required;
     titleBn: Schema.Attribute.String;
     updatedAt: Schema.Attribute.DateTime;
@@ -434,7 +436,7 @@ export interface ApiAuthorAuthor extends Struct.CollectionTypeSchema {
     singularName: 'author';
   };
   options: {
-    draftAndPublish: true;
+    draftAndPublish: false;
   };
   attributes: {
     Avatar: Schema.Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
