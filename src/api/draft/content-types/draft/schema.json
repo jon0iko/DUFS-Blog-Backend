@@ -1,0 +1,27 @@
+{
+  "kind": "collectionType",
+  "collectionName": "drafts",
+  "info": {
+    "singularName": "draft",
+    "pluralName": "drafts",
+    "displayName": "Draft",
+    "description": ""
+  },
+  "options": {},
+  "pluginOptions": {},
+  "attributes": {
+    "name": {
+      "type": "string",
+      "required": true
+    },
+    "content": {
+      "type": "richtext",
+      "required": true
+    },
+    "users_permissions_user": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "plugin::users-permissions.user"
+    }
+  }
+}
