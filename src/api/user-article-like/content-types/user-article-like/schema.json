@@ -1,0 +1,24 @@
+{
+  "kind": "collectionType",
+  "collectionName": "user-article-likes",
+  "info": {
+    "singularName": "user-article-like",
+    "pluralName": "user-article-likes",
+    "displayName": "User Article Like",
+    "description": ""
+  },
+  "options": {},
+  "pluginOptions": {},
+  "attributes": {
+    "article": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::article.article"
+    },
+    "user": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "plugin::users-permissions.user"
+    }
+  }
+}
