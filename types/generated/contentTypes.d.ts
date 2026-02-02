@@ -554,6 +554,7 @@ export interface ApiCategoryCategory extends Struct.CollectionTypeSchema {
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
     description: Schema.Attribute.Text;
+    Illustration: Schema.Attribute.Media<'images' | 'files'>;
     isActive: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<true>;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
@@ -784,6 +785,38 @@ export interface ApiUserArticleLikeUserArticleLike
       'manyToOne',
       'plugin::users-permissions.user'
     >;
+  };
+}
+
+export interface ApiUserUploadUserUpload extends Struct.CollectionTypeSchema {
+  collectionName: 'user_uploads';
+  info: {
+    description: '';
+    displayName: 'User_Upload';
+    pluralName: 'user-uploads';
+    singularName: 'user-upload';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  attributes: {
+    author: Schema.Attribute.Relation<'oneToOne', 'api::author.author'>;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    File: Schema.Attribute.Media<'files'> & Schema.Attribute.Required;
+    Filename: Schema.Attribute.Text;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::user-upload.user-upload'
+    > &
+      Schema.Attribute.Private;
+    publishedAt: Schema.Attribute.DateTime;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    UploadTime: Schema.Attribute.DateTime;
   };
 }
 
@@ -1315,6 +1348,7 @@ declare module '@strapi/strapi' {
       'api::submission.submission': ApiSubmissionSubmission;
       'api::tag.tag': ApiTagTag;
       'api::user-article-like.user-article-like': ApiUserArticleLikeUserArticleLike;
+      'api::user-upload.user-upload': ApiUserUploadUserUpload;
       'plugin::content-releases.release': PluginContentReleasesRelease;
       'plugin::content-releases.release-action': PluginContentReleasesReleaseAction;
       'plugin::i18n.locale': PluginI18NLocale;

@@ -1,0 +1,34 @@
+{
+  "kind": "collectionType",
+  "collectionName": "user_uploads",
+  "info": {
+    "singularName": "user-upload",
+    "pluralName": "user-uploads",
+    "displayName": "User_Upload",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "attributes": {
+    "Filename": {
+      "type": "text"
+    },
+    "File": {
+      "type": "media",
+      "multiple": false,
+      "required": true,
+      "allowedTypes": [
+        "files"
+      ]
+    },
+    "author": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::author.author"
+    },
+    "UploadTime": {
+      "type": "datetime"
+    }
+  }
+}

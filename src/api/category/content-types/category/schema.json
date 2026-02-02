@@ -39,6 +39,14 @@
     "sortOrder": {
       "default": 0,
       "type": "integer"
+    },
+    "Illustration": {
+      "allowedTypes": [
+        "images",
+        "files"
+      ],
+      "type": "media",
+      "multiple": false
     }
   }
 }
