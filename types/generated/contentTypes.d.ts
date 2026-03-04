@@ -754,6 +754,37 @@ export interface ApiTagTag extends Struct.CollectionTypeSchema {
   };
 }
 
+export interface ApiTextReelHomepageTextReelHomepage
+  extends Struct.SingleTypeSchema {
+  collectionName: 'text_reel_homepages';
+  info: {
+    displayName: 'text_reel_Homepage';
+    pluralName: 'text-reel-homepages';
+    singularName: 'text-reel-homepage';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  attributes: {
+    Content: Schema.Attribute.Text &
+      Schema.Attribute.Required &
+      Schema.Attribute.DefaultTo<'Better Films \u00B7 Better Viewers \u00B7'>;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::text-reel-homepage.text-reel-homepage'
+    > &
+      Schema.Attribute.Private;
+    publishedAt: Schema.Attribute.DateTime;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
 export interface ApiUserArticleLikeUserArticleLike
   extends Struct.CollectionTypeSchema {
   collectionName: 'user-article-likes';
@@ -1347,6 +1378,7 @@ declare module '@strapi/strapi' {
       'api::navigation-item.navigation-item': ApiNavigationItemNavigationItem;
       'api::submission.submission': ApiSubmissionSubmission;
       'api::tag.tag': ApiTagTag;
+      'api::text-reel-homepage.text-reel-homepage': ApiTextReelHomepageTextReelHomepage;
       'api::user-article-like.user-article-like': ApiUserArticleLikeUserArticleLike;
       'api::user-upload.user-upload': ApiUserUploadUserUpload;
       'plugin::content-releases.release': PluginContentReleasesRelease;

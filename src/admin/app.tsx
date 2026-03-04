@@ -106,7 +106,11 @@ export default {
         "HomePage.header.subtitle": "DUFS Blog Admin Panel",
         "Auth.form.welcome.subtitle": "Better Film, Better Viewers",
         "Auth.form.welcome.title": "DUFS Blog Admin Panel",
-        "Auth.form.email.placeholder": "e.g. dhakauniversityfilmsociety@gmail.com"
+        "Auth.form.email.placeholder": "e.g. dhakauniversityfilmsociety@gmail.com",
+        "Auth.form.button.login.strapi": "Login to DUFS Blog",
+        "Auth.form.register.subtitle": "Credentials are only used to authenticate here. All saved data will be stored in your database.",
+        "Settings.permissions.users.listview.header.subtitle": "All the users who have access to the DUFS Blog admin panel",
+        "Auth.link.forgot-password": "The FIRST RULE of \"DUFS Blog\": You do not lose your PASSWORD!"
       },
     }
   },

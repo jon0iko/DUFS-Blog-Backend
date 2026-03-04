@@ -1,0 +1,19 @@
+{
+  "kind": "singleType",
+  "collectionName": "text_reel_homepages",
+  "info": {
+    "singularName": "text-reel-homepage",
+    "pluralName": "text-reel-homepages",
+    "displayName": "text_reel_Homepage"
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "attributes": {
+    "Content": {
+      "type": "text",
+      "default": "Better Films · Better Viewers ·",
+      "required": true
+    }
+  }
+}
