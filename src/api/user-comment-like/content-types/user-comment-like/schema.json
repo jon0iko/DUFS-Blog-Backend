@@ -1,0 +1,29 @@
+{
+  "kind": "collectionType",
+  "collectionName": "user-comment-likes",
+  "info": {
+    "singularName": "user-comment-like",
+    "pluralName": "user-comment-likes",
+    "displayName": "User Comment Like",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "likedAt": {
+      "type": "datetime"
+    },
+    "comment": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::comment.comment"
+    },
+    "user": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "plugin::users-permissions.user"
+    }
+  }
+}

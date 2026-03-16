@@ -71,12 +71,6 @@
       "target": "api::author.author",
       "mappedBy": "users_permissions_user"
     },
-    "comment": {
-      "type": "relation",
-      "relation": "oneToOne",
-      "target": "api::comment.comment",
-      "mappedBy": "users_permissions_user"
-    },
     "Bio": {
       "type": "richtext",
       "maxLength": 500
@@ -95,6 +89,12 @@
     },
     "Country": {
       "type": "string"
+    },
+    "comments": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::comment.comment",
+      "mappedBy": "users_permissions_user"
     }
   }
 }

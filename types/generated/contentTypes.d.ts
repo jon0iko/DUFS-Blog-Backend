@@ -383,6 +383,7 @@ export interface ApiArticleArticle extends Struct.CollectionTypeSchema {
   attributes: {
     author: Schema.Attribute.Relation<'manyToOne', 'api::author.author'>;
     category: Schema.Attribute.Relation<'manyToOne', 'api::category.category'>;
+    comments: Schema.Attribute.Relation<'oneToMany', 'api::comment.comment'>;
     content: Schema.Attribute.RichText & Schema.Attribute.Required;
     contentBn: Schema.Attribute.RichText;
     createdAt: Schema.Attribute.DateTime;
@@ -592,6 +593,7 @@ export interface ApiCommentComment extends Struct.CollectionTypeSchema {
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
+    HideComment: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
     isReplyable: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<true>;
     likeCount: Schema.Attribute.Integer & Schema.Attribute.DefaultTo<0>;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
@@ -610,7 +612,7 @@ export interface ApiCommentComment extends Struct.CollectionTypeSchema {
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
     users_permissions_user: Schema.Attribute.Relation<
-      'oneToOne',
+      'manyToOne',
       'plugin::users-permissions.user'
     >;
   };
@@ -758,6 +760,7 @@ export interface ApiTextReelHomepageTextReelHomepage
   extends Struct.SingleTypeSchema {
   collectionName: 'text_reel_homepages';
   info: {
+    description: '';
     displayName: 'text_reel_Homepage';
     pluralName: 'text-reel-homepages';
     singularName: 'text-reel-homepage';
@@ -779,6 +782,7 @@ export interface ApiTextReelHomepageTextReelHomepage
     > &
       Schema.Attribute.Private;
     publishedAt: Schema.Attribute.DateTime;
+    Show: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<true>;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -816,6 +820,74 @@ export interface ApiUserArticleLikeUserArticleLike
       'manyToOne',
       'plugin::users-permissions.user'
     >;
+  };
+}
+
+export interface ApiUserCommentLikeUserCommentLike
+  extends Struct.CollectionTypeSchema {
+  collectionName: 'user-comment-likes';
+  info: {
+    description: '';
+    displayName: 'User Comment Like';
+    pluralName: 'user-comment-likes';
+    singularName: 'user-comment-like';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  attributes: {
+    comment: Schema.Attribute.Relation<'manyToOne', 'api::comment.comment'>;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    likedAt: Schema.Attribute.DateTime;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::user-comment-like.user-comment-like'
+    > &
+      Schema.Attribute.Private;
+    publishedAt: Schema.Attribute.DateTime;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    user: Schema.Attribute.Relation<
+      'manyToOne',
+      'plugin::users-permissions.user'
+    >;
+  };
+}
+
+export interface ApiUserRequestReportUserRequestReport
+  extends Struct.CollectionTypeSchema {
+  collectionName: 'user_request_reports';
+  info: {
+    displayName: 'USER REQUEST-REPORT';
+    pluralName: 'user-request-reports';
+    singularName: 'user-request-report';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    Description: Schema.Attribute.Text;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::user-request-report.user-request-report'
+    > &
+      Schema.Attribute.Private;
+    publishedAt: Schema.Attribute.DateTime;
+    Resolved: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
+    Section: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.DefaultTo<'Unknown'>;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
   };
 }
 
@@ -1315,7 +1387,7 @@ export interface PluginUsersPermissionsUser
         maxLength: 500;
       }>;
     blocked: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
-    comment: Schema.Attribute.Relation<'oneToOne', 'api::comment.comment'>;
+    comments: Schema.Attribute.Relation<'oneToMany', 'api::comment.comment'>;
     confirmationToken: Schema.Attribute.String & Schema.Attribute.Private;
     confirmed: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
     Country: Schema.Attribute.String;
@@ -1380,6 +1452,8 @@ declare module '@strapi/strapi' {
       'api::tag.tag': ApiTagTag;
       'api::text-reel-homepage.text-reel-homepage': ApiTextReelHomepageTextReelHomepage;
       'api::user-article-like.user-article-like': ApiUserArticleLikeUserArticleLike;
+      'api::user-comment-like.user-comment-like': ApiUserCommentLikeUserCommentLike;
+      'api::user-request-report.user-request-report': ApiUserRequestReportUserRequestReport;
       'api::user-upload.user-upload': ApiUserUploadUserUpload;
       'plugin::content-releases.release': PluginContentReleasesRelease;
       'plugin::content-releases.release-action': PluginContentReleasesReleaseAction;

@@ -1,0 +1,27 @@
+{
+  "kind": "collectionType",
+  "collectionName": "user_request_reports",
+  "info": {
+    "singularName": "user-request-report",
+    "pluralName": "user-request-reports",
+    "displayName": "USER REQUEST-REPORT"
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "attributes": {
+    "Section": {
+      "type": "string",
+      "required": true,
+      "default": "Unknown"
+    },
+    "Description": {
+      "type": "text",
+      "required": false
+    },
+    "Resolved": {
+      "type": "boolean",
+      "default": false
+    }
+  }
+}
