@@ -136,6 +136,26 @@
       "relation": "oneToMany",
       "target": "api::comment.comment",
       "mappedBy": "article"
+    },
+    "publication_issue": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::publication-issue.publication-issue",
+      "inversedBy": "pieces"
+    },
+    "publication_author_name": {
+      "type": "string"
+    },
+    "TEST": {
+      "type": "customField",
+      "options": {
+        "preset": "defaultMarkdown"
+      },
+      "customField": "plugin::ckeditor5.CKEditor"
+    },
+    "DisableComments": {
+      "type": "boolean",
+      "default": false
     }
   }
 }

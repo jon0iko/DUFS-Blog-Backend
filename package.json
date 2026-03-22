@@ -15,8 +15,9 @@
     "upgrade:dry": "npx @strapi/upgrade latest --dry"
   },
   "dependencies": {
-    "@notum-cz/strapi-plugin-tiptap-editor": "^1.0.2",
+    "@_sh/strapi-plugin-ckeditor": "^7.1.0",
     "@strapi/plugin-cloud": "5.12.3",
+    "@strapi/plugin-color-picker": "^5.39.0",
     "@strapi/plugin-users-permissions": "5.12.3",
     "@strapi/strapi": "5.12.3",
     "mysql2": "3.9.8",

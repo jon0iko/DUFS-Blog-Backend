@@ -95,6 +95,9 @@
       "relation": "oneToMany",
       "target": "api::comment.comment",
       "mappedBy": "users_permissions_user"
+    },
+    "fullName": {
+      "type": "string"
     }
   }
 }

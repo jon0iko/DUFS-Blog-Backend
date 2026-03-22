@@ -1,0 +1,63 @@
+{
+  "kind": "collectionType",
+  "collectionName": "publications",
+  "info": {
+    "singularName": "publication",
+    "pluralName": "publications",
+    "displayName": "Publication",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "attributes": {
+    "TitleEnglish": {
+      "type": "string",
+      "required": true
+    },
+    "TitleBangla": {
+      "type": "string",
+      "required": true
+    },
+    "Image": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": [
+        "images"
+      ]
+    },
+    "Color": {
+      "type": "customField",
+      "regex": "^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$",
+      "customField": "plugin::color-picker.color",
+      "required": true
+    },
+    "ShowInHome": {
+      "type": "boolean",
+      "default": false,
+      "required": true
+    },
+    "Hide": {
+      "type": "boolean",
+      "default": false
+    },
+    "HasVolumes": {
+      "type": "boolean",
+      "required": true
+    },
+    "publication_issues": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::publication-issue.publication-issue",
+      "mappedBy": "publication"
+    },
+    "Description": {
+      "type": "customField",
+      "options": {
+        "preset": "defaultMarkdown"
+      },
+      "customField": "plugin::ckeditor5.CKEditor"
+    }
+  }
+}

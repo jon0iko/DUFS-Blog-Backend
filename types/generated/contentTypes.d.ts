@@ -389,6 +389,8 @@ export interface ApiArticleArticle extends Struct.CollectionTypeSchema {
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
+    DisableComments: Schema.Attribute.Boolean &
+      Schema.Attribute.DefaultTo<false>;
     excerpt: Schema.Attribute.Text & Schema.Attribute.Required;
     excerptBn: Schema.Attribute.Text;
     featuredImage: Schema.Attribute.Media<'images'>;
@@ -409,6 +411,11 @@ export interface ApiArticleArticle extends Struct.CollectionTypeSchema {
     metaDescription: Schema.Attribute.Text;
     metaKeywords: Schema.Attribute.JSON;
     metaTitle: Schema.Attribute.String;
+    publication_author_name: Schema.Attribute.String;
+    publication_issue: Schema.Attribute.Relation<
+      'manyToOne',
+      'api::publication-issue.publication-issue'
+    >;
     publishedAt: Schema.Attribute.DateTime;
     readTime: Schema.Attribute.Integer;
     slug: Schema.Attribute.UID<'title'> & Schema.Attribute.Required;
@@ -419,6 +426,13 @@ export interface ApiArticleArticle extends Struct.CollectionTypeSchema {
       Schema.Attribute.Required &
       Schema.Attribute.DefaultTo<'published'>;
     tags: Schema.Attribute.Relation<'manyToMany', 'api::tag.tag'>;
+    TEST: Schema.Attribute.RichText &
+      Schema.Attribute.CustomField<
+        'plugin::ckeditor5.CKEditor',
+        {
+          preset: 'defaultMarkdown';
+        }
+      >;
     title: Schema.Attribute.String & Schema.Attribute.Required;
     titleBn: Schema.Attribute.String;
     updatedAt: Schema.Attribute.DateTime;
@@ -679,6 +693,130 @@ export interface ApiNavigationItemNavigationItem
     sortOrder: Schema.Attribute.Integer & Schema.Attribute.DefaultTo<0>;
     title: Schema.Attribute.String & Schema.Attribute.Required;
     titleBn: Schema.Attribute.String;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
+export interface ApiPublicationIssuePublicationIssue
+  extends Struct.CollectionTypeSchema {
+  collectionName: 'publication_issues';
+  info: {
+    description: '';
+    displayName: 'Publication_Issue';
+    pluralName: 'publication-issues';
+    singularName: 'publication-issue';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  attributes: {
+    CoverImage: Schema.Attribute.Media<'images'> & Schema.Attribute.Required;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    Details: Schema.Attribute.RichText &
+      Schema.Attribute.CustomField<
+        'plugin::ckeditor5.CKEditor',
+        {
+          preset: 'defaultMarkdown';
+        }
+      >;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::publication-issue.publication-issue'
+    > &
+      Schema.Attribute.Private;
+    pieces: Schema.Attribute.Relation<'oneToMany', 'api::article.article'>;
+    publication: Schema.Attribute.Relation<
+      'manyToOne',
+      'api::publication.publication'
+    >;
+    publishedAt: Schema.Attribute.DateTime;
+    PublishedDate: Schema.Attribute.Date & Schema.Attribute.Required;
+    Title: Schema.Attribute.String & Schema.Attribute.Required;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
+export interface ApiPublicationPublication extends Struct.CollectionTypeSchema {
+  collectionName: 'publications';
+  info: {
+    description: '';
+    displayName: 'Publication';
+    pluralName: 'publications';
+    singularName: 'publication';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  attributes: {
+    Color: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.CustomField<'plugin::color-picker.color'>;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    Description: Schema.Attribute.RichText &
+      Schema.Attribute.CustomField<
+        'plugin::ckeditor5.CKEditor',
+        {
+          preset: 'defaultMarkdown';
+        }
+      >;
+    HasVolumes: Schema.Attribute.Boolean & Schema.Attribute.Required;
+    Hide: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
+    Image: Schema.Attribute.Media<'images'>;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::publication.publication'
+    > &
+      Schema.Attribute.Private;
+    publication_issues: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::publication-issue.publication-issue'
+    >;
+    publishedAt: Schema.Attribute.DateTime;
+    ShowInHome: Schema.Attribute.Boolean &
+      Schema.Attribute.Required &
+      Schema.Attribute.DefaultTo<false>;
+    TitleBangla: Schema.Attribute.String & Schema.Attribute.Required;
+    TitleEnglish: Schema.Attribute.String & Schema.Attribute.Required;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
+export interface ApiSocialLinkSocialLink extends Struct.CollectionTypeSchema {
+  collectionName: 'social_links';
+  info: {
+    displayName: 'SocialLink';
+    pluralName: 'social-links';
+    singularName: 'social-link';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    Link: Schema.Attribute.String & Schema.Attribute.Required;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::social-link.social-link'
+    > &
+      Schema.Attribute.Private;
+    Logo: Schema.Attribute.Media<'images'> & Schema.Attribute.Required;
+    Platform: Schema.Attribute.String & Schema.Attribute.Required;
+    publishedAt: Schema.Attribute.DateTime;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -1399,6 +1537,7 @@ export interface PluginUsersPermissionsUser
       Schema.Attribute.SetMinMaxLength<{
         minLength: 6;
       }>;
+    fullName: Schema.Attribute.String;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
       'oneToMany',
@@ -1448,6 +1587,9 @@ declare module '@strapi/strapi' {
       'api::comment.comment': ApiCommentComment;
       'api::draft.draft': ApiDraftDraft;
       'api::navigation-item.navigation-item': ApiNavigationItemNavigationItem;
+      'api::publication-issue.publication-issue': ApiPublicationIssuePublicationIssue;
+      'api::publication.publication': ApiPublicationPublication;
+      'api::social-link.social-link': ApiSocialLinkSocialLink;
       'api::submission.submission': ApiSubmissionSubmission;
       'api::tag.tag': ApiTagTag;
       'api::text-reel-homepage.text-reel-homepage': ApiTextReelHomepageTextReelHomepage;
