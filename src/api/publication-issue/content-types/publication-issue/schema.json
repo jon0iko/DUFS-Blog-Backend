@@ -39,12 +39,40 @@
       "target": "api::article.article",
       "mappedBy": "publication_issue"
     },
-    "Details": {
+    "TableOfContents": {
       "type": "customField",
       "options": {
         "preset": "defaultMarkdown"
       },
       "customField": "plugin::ckeditor5.CKEditor"
+    },
+    "Editorial": {
+      "type": "customField",
+      "options": {
+        "preset": "defaultMarkdown"
+      },
+      "customField": "plugin::ckeditor5.CKEditor"
+    },
+    "Year": {
+      "type": "string"
+    },
+    "Editor": {
+      "type": "string"
+    },
+    "CoverDesigner": {
+      "type": "string"
+    },
+    "Designer": {
+      "type": "string"
+    },
+    "Imprint": {
+      "type": "string"
+    },
+    "PageNumber": {
+      "type": "string"
+    },
+    "Price": {
+      "type": "string"
     }
   }
 }

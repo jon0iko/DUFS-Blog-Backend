@@ -478,10 +478,10 @@ export interface ApiAuthorAuthor extends Struct.CollectionTypeSchema {
   };
 }
 
-export interface ApiBannerBanner extends Struct.CollectionTypeSchema {
+export interface ApiBannerBanner extends Struct.SingleTypeSchema {
   collectionName: 'banners';
   info: {
-    description: 'Banners and announcements for the site';
+    description: '';
     displayName: 'Banner';
     pluralName: 'banners';
     singularName: 'banner';
@@ -490,29 +490,24 @@ export interface ApiBannerBanner extends Struct.CollectionTypeSchema {
     draftAndPublish: false;
   };
   attributes: {
-    backgroundColor: Schema.Attribute.String;
+    Active: Schema.Attribute.Boolean &
+      Schema.Attribute.Required &
+      Schema.Attribute.DefaultTo<false>;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
-    endDate: Schema.Attribute.DateTime;
-    headline: Schema.Attribute.String & Schema.Attribute.Required;
-    headlineBn: Schema.Attribute.String;
-    isActive: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<true>;
+    EndDate: Schema.Attribute.DateTime;
+    headline: Schema.Attribute.Text;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
       'oneToMany',
       'api::banner.banner'
     > &
       Schema.Attribute.Private;
-    postTitle: Schema.Attribute.String & Schema.Attribute.Required;
-    postTitleBn: Schema.Attribute.String;
-    postUrl: Schema.Attribute.String & Schema.Attribute.Required;
-    priority: Schema.Attribute.Integer & Schema.Attribute.DefaultTo<0>;
+    postTitle: Schema.Attribute.Text;
+    postUrl: Schema.Attribute.String;
     publishedAt: Schema.Attribute.DateTime;
-    startDate: Schema.Attribute.DateTime;
     subtitle: Schema.Attribute.Text;
-    subtitleBn: Schema.Attribute.Text;
-    textColor: Schema.Attribute.String;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -564,12 +559,9 @@ export interface ApiCategoryCategory extends Struct.CollectionTypeSchema {
     draftAndPublish: false;
   };
   attributes: {
-    color: Schema.Attribute.String;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
-    description: Schema.Attribute.Text;
-    Illustration: Schema.Attribute.Media<'images' | 'files'>;
     isActive: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<true>;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
@@ -578,11 +570,10 @@ export interface ApiCategoryCategory extends Struct.CollectionTypeSchema {
     > &
       Schema.Attribute.Private;
     Name: Schema.Attribute.String & Schema.Attribute.Required;
-    nameBn: Schema.Attribute.String;
+    nameBn: Schema.Attribute.String & Schema.Attribute.Required;
     nameEn: Schema.Attribute.String & Schema.Attribute.Required;
     publishedAt: Schema.Attribute.DateTime;
-    Slug: Schema.Attribute.UID<'Name'>;
-    sortOrder: Schema.Attribute.Integer & Schema.Attribute.DefaultTo<0>;
+    Slug: Schema.Attribute.UID<'nameEn'> & Schema.Attribute.Required;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -712,34 +703,48 @@ export interface ApiPublicationIssuePublicationIssue
     draftAndPublish: false;
   };
   attributes: {
+    CoverDesigner: Schema.Attribute.String;
     CoverImage: Schema.Attribute.Media<'images'> & Schema.Attribute.Required;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
-    Details: Schema.Attribute.RichText &
+    Designer: Schema.Attribute.String;
+    Editor: Schema.Attribute.String;
+    Editorial: Schema.Attribute.RichText &
       Schema.Attribute.CustomField<
         'plugin::ckeditor5.CKEditor',
         {
           preset: 'defaultMarkdown';
         }
       >;
+    Imprint: Schema.Attribute.String;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
       'oneToMany',
       'api::publication-issue.publication-issue'
     > &
       Schema.Attribute.Private;
+    PageNumber: Schema.Attribute.String;
     pieces: Schema.Attribute.Relation<'oneToMany', 'api::article.article'>;
+    Price: Schema.Attribute.String;
     publication: Schema.Attribute.Relation<
       'manyToOne',
       'api::publication.publication'
     >;
     publishedAt: Schema.Attribute.DateTime;
     PublishedDate: Schema.Attribute.Date & Schema.Attribute.Required;
+    TableOfContents: Schema.Attribute.RichText &
+      Schema.Attribute.CustomField<
+        'plugin::ckeditor5.CKEditor',
+        {
+          preset: 'defaultMarkdown';
+        }
+      >;
     Title: Schema.Attribute.String & Schema.Attribute.Required;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
+    Year: Schema.Attribute.String;
   };
 }
 
@@ -888,6 +893,41 @@ export interface ApiTagTag extends Struct.CollectionTypeSchema {
     name: Schema.Attribute.String & Schema.Attribute.Required;
     publishedAt: Schema.Attribute.DateTime;
     slug: Schema.Attribute.UID<'name'> & Schema.Attribute.Required;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
+export interface ApiTermsAndConditionTermsAndCondition
+  extends Struct.SingleTypeSchema {
+  collectionName: 'terms_and_conditions';
+  info: {
+    displayName: 'terms&condition';
+    pluralName: 'terms-and-conditions';
+    singularName: 'terms-and-condition';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  attributes: {
+    Content: Schema.Attribute.RichText &
+      Schema.Attribute.CustomField<
+        'plugin::ckeditor5.CKEditor',
+        {
+          preset: 'defaultMarkdown';
+        }
+      >;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::terms-and-condition.terms-and-condition'
+    > &
+      Schema.Attribute.Private;
+    publishedAt: Schema.Attribute.DateTime;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -1592,6 +1632,7 @@ declare module '@strapi/strapi' {
       'api::social-link.social-link': ApiSocialLinkSocialLink;
       'api::submission.submission': ApiSubmissionSubmission;
       'api::tag.tag': ApiTagTag;
+      'api::terms-and-condition.terms-and-condition': ApiTermsAndConditionTermsAndCondition;
       'api::text-reel-homepage.text-reel-homepage': ApiTextReelHomepageTextReelHomepage;
       'api::user-article-like.user-article-like': ApiUserArticleLikeUserArticleLike;
       'api::user-comment-like.user-comment-like': ApiUserCommentLikeUserCommentLike;
