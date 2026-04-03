@@ -98,6 +98,12 @@
     },
     "fullName": {
       "type": "string"
+    },
+    "bookmarks": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::bookmark.bookmark",
+      "mappedBy": "user"
     }
   }
 }

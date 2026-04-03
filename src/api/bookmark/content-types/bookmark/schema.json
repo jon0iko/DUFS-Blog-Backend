@@ -7,18 +7,22 @@
     "displayName": "Bookmark",
     "description": ""
   },
-  "options": {},
+  "options": {
+    "draftAndPublish": false
+  },
   "pluginOptions": {},
   "attributes": {
     "article": {
       "type": "relation",
       "relation": "manyToOne",
-      "target": "api::article.article"
+      "target": "api::article.article",
+      "inversedBy": "bookmarks"
     },
     "user": {
       "type": "relation",
       "relation": "manyToOne",
-      "target": "plugin::users-permissions.user"
+      "target": "plugin::users-permissions.user",
+      "inversedBy": "bookmarks"
     }
   }
 }

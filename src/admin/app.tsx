@@ -1,6 +1,7 @@
 import type { StrapiApp } from '@strapi/strapi/admin';
 import Dufs_Logo from './extensions/Dufs.png';
 import './extensions/custom.css';
+import { setPluginConfig, defaultMarkdownPreset } from '@_sh/strapi-plugin-ckeditor';
 
 const colors = {
   black: '#000000',

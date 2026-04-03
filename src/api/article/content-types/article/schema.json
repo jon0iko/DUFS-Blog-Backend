@@ -12,20 +12,6 @@
   },
   "pluginOptions": {},
   "attributes": {
-    "content": {
-      "required": true,
-      "type": "richtext"
-    },
-    "contentBn": {
-      "type": "richtext"
-    },
-    "excerpt": {
-      "required": true,
-      "type": "text"
-    },
-    "excerptBn": {
-      "type": "text"
-    },
     "featuredImage": {
       "type": "media",
       "multiple": false,
@@ -34,23 +20,11 @@
         "images"
       ]
     },
-    "gallery": {
-      "type": "media",
-      "multiple": true,
-      "required": false,
-      "allowedTypes": [
-        "images"
-      ]
-    },
-    "isEditorsPick": {
+    "InFeatured": {
       "default": false,
       "type": "boolean"
     },
-    "isFeatured": {
-      "default": false,
-      "type": "boolean"
-    },
-    "isHero": {
+    "InSlider": {
       "default": false,
       "type": "boolean"
     },
@@ -68,30 +42,10 @@
       "default": 0,
       "type": "integer"
     },
-    "metaDescription": {
-      "type": "text"
-    },
-    "metaKeywords": {
-      "type": "json"
-    },
-    "metaTitle": {
-      "type": "string"
-    },
-    "readTime": {
-      "type": "integer"
-    },
     "slug": {
       "required": true,
       "targetField": "title",
       "type": "uid"
-    },
-    "socialImage": {
-      "type": "media",
-      "multiple": false,
-      "required": false,
-      "allowedTypes": [
-        "images"
-      ]
     },
     "storyState": {
       "default": "published",
@@ -107,9 +61,6 @@
     },
     "title": {
       "required": true,
-      "type": "string"
-    },
-    "titleBn": {
       "type": "string"
     },
     "viewCount": {
@@ -146,16 +97,35 @@
     "publication_author_name": {
       "type": "string"
     },
-    "TEST": {
+    "DisableComments": {
+      "type": "boolean",
+      "default": false
+    },
+    "content": {
       "type": "customField",
+      "required": true,
       "options": {
         "preset": "defaultMarkdown"
       },
       "customField": "plugin::ckeditor5.CKEditor"
     },
-    "DisableComments": {
-      "type": "boolean",
-      "default": false
+    "BlogDate": {
+      "type": "date"
+    },
+    "SubmitDate": {
+      "type": "date"
+    },
+    "user_upload_file": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::user-upload.user-upload",
+      "mappedBy": "article"
+    },
+    "bookmarks": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::bookmark.bookmark",
+      "mappedBy": "article"
     }
   }
 }
