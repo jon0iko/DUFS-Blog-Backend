@@ -4,7 +4,8 @@
   "info": {
     "singularName": "user-request-report",
     "pluralName": "user-request-reports",
-    "displayName": "USER REQUEST-REPORT"
+    "displayName": "USER REQUEST-REPORT",
+    "description": ""
   },
   "options": {
     "draftAndPublish": false
@@ -22,6 +23,11 @@
     "Resolved": {
       "type": "boolean",
       "default": false
+    },
+    "user": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "plugin::users-permissions.user"
     }
   }
 }

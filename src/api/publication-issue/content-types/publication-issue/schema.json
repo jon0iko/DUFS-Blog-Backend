@@ -1,0 +1,78 @@
+{
+  "kind": "collectionType",
+  "collectionName": "publication_issues",
+  "info": {
+    "singularName": "publication-issue",
+    "pluralName": "publication-issues",
+    "displayName": "Publication_Issue",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "attributes": {
+    "Title": {
+      "type": "string",
+      "required": true
+    },
+    "CoverImage": {
+      "type": "media",
+      "multiple": false,
+      "required": true,
+      "allowedTypes": [
+        "images"
+      ]
+    },
+    "PublishedDate": {
+      "type": "date",
+      "required": true
+    },
+    "publication": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::publication.publication",
+      "inversedBy": "publication_issues"
+    },
+    "pieces": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::article.article",
+      "mappedBy": "publication_issue"
+    },
+    "TableOfContents": {
+      "type": "customField",
+      "options": {
+        "preset": "defaultMarkdown"
+      },
+      "customField": "plugin::ckeditor5.CKEditor"
+    },
+    "Editorial": {
+      "type": "customField",
+      "options": {
+        "preset": "defaultMarkdown"
+      },
+      "customField": "plugin::ckeditor5.CKEditor"
+    },
+    "Year": {
+      "type": "string"
+    },
+    "Editor": {
+      "type": "string"
+    },
+    "CoverDesigner": {
+      "type": "string"
+    },
+    "Designer": {
+      "type": "string"
+    },
+    "Imprint": {
+      "type": "string"
+    },
+    "PageNumber": {
+      "type": "string"
+    },
+    "Price": {
+      "type": "string"
+    }
+  }
+}

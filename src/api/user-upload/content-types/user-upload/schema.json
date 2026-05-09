@@ -29,6 +29,12 @@
     },
     "UploadTime": {
       "type": "datetime"
+    },
+    "article": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::article.article",
+      "inversedBy": "user_upload_file"
     }
   }
 }

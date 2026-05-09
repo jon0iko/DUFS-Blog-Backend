@@ -17,13 +17,8 @@
     },
     "Slug": {
       "type": "uid",
-      "targetField": "Name"
-    },
-    "color": {
-      "type": "string"
-    },
-    "description": {
-      "type": "text"
+      "targetField": "nameEn",
+      "required": true
     },
     "isActive": {
       "default": true,
@@ -34,19 +29,8 @@
       "type": "string"
     },
     "nameBn": {
-      "type": "string"
-    },
-    "sortOrder": {
-      "default": 0,
-      "type": "integer"
-    },
-    "Illustration": {
-      "allowedTypes": [
-        "images",
-        "files"
-      ],
-      "type": "media",
-      "multiple": false
+      "type": "string",
+      "required": true
     }
   }
 }

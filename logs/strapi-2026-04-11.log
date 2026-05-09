@@ -1,0 +1,10 @@
+{"level":"\u001b[32minfo\u001b[39m","message":"File changed: /home/nillohit/Desktop/DUFS Blog/DUFS-Blog-Backend/src/api/author/content-types/author/schema.json","timestamp":"2026-04-11 02:15:19.772"}
+{"level":"\u001b[32minfo\u001b[39m","message":"File changed: /home/nillohit/Desktop/DUFS Blog/DUFS-Blog-Backend/src/extensions/users-permissions/content-types/user/schema.json","timestamp":"2026-04-11 02:15:19.780"}
+{"level":"\u001b[32minfo\u001b[39m","message":"Shutting down Strapi","timestamp":"2026-04-11 02:15:25.409"}
+{"level":"\u001b[32minfo\u001b[39m","message":"Strapi has been shut down","timestamp":"2026-04-11 02:15:25.412"}
+{"level":"\u001b[33mwarn\u001b[39m","message":"admin.auth.options.expiresIn is deprecated and will be removed in Strapi 6. Please configure admin.auth.sessions.maxRefreshTokenLifespan and admin.auth.sessions.maxSessionLifespan.","timestamp":"2026-04-11 02:15:29.509"}
+{"level":"\u001b[32minfo\u001b[39m","message":"Strapi started successfully","timestamp":"2026-04-11 02:15:35.842"}
+{"level":"\u001b[32minfo\u001b[39m","message":"Shutting down Strapi","timestamp":"2026-04-11 02:15:41.515"}
+{"level":"\u001b[33mwarn\u001b[39m","message":"admin.auth.options.expiresIn is deprecated and will be removed in Strapi 6. Please configure admin.auth.sessions.maxRefreshTokenLifespan and admin.auth.sessions.maxSessionLifespan.","timestamp":"2026-04-11 02:18:03.770"}
+{"level":"\u001b[32minfo\u001b[39m","message":"Strapi started successfully","timestamp":"2026-04-11 02:18:09.846"}
+{"level":"\u001b[32minfo\u001b[39m","message":"Shutting down Strapi","timestamp":"2026-04-11 04:49:04.309"}

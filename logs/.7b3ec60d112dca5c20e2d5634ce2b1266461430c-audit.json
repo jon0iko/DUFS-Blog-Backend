@@ -1,0 +1,20 @@
+{
+    "keep": {
+        "days": true,
+        "amount": 7
+    },
+    "auditLog": "logs/.7b3ec60d112dca5c20e2d5634ce2b1266461430c-audit.json",
+    "files": [
+        {
+            "date": 1775807409379,
+            "name": "logs/strapi-2026-04-10.log",
+            "hash": "a9c59de1ffb2e0bfcfc7aa882d69dc2f6bad9e4cffd3c8a5a703809035c8f281"
+        },
+        {
+            "date": 1775852119777,
+            "name": "logs/strapi-2026-04-11.log",
+            "hash": "b282a027df3da9b32f509352f6e576c36057a388ed031df0e0f4828df5d4aa2f"
+        }
+    ],
+    "hashType": "sha256"
+}

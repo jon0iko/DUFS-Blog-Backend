@@ -103,6 +103,21 @@ export interface BlocksRichTextSection extends Struct.ComponentSchema {
   };
 }
 
+export interface PublicationPublicationPiece extends Struct.ComponentSchema {
+  collectionName: 'components_publication_publication_pieces';
+  info: {
+    description: '';
+    displayName: 'Publication_Piece';
+    icon: 'attachment';
+  };
+  attributes: {
+    Content: Schema.Attribute.RichText & Schema.Attribute.Required;
+    Title: Schema.Attribute.String & Schema.Attribute.Required;
+    TitleImage: Schema.Attribute.Media<'images'>;
+    WriterName: Schema.Attribute.String & Schema.Attribute.Required;
+  };
+}
+
 export interface SharedSectionSettings extends Struct.ComponentSchema {
   collectionName: 'components_shared_section_settings';
   info: {
@@ -150,6 +165,7 @@ declare module '@strapi/strapi' {
       'blocks.hero-section': BlocksHeroSection;
       'blocks.media-section': BlocksMediaSection;
       'blocks.rich-text-section': BlocksRichTextSection;
+      'publication.publication-piece': PublicationPublicationPiece;
       'shared.section-settings': SharedSectionSettings;
       'shared.seo': SharedSeo;
     }

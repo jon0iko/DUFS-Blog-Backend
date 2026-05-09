@@ -34,6 +34,10 @@ export interface AdminApiToken extends Struct.CollectionTypeSchema {
         minLength: 1;
       }> &
       Schema.Attribute.DefaultTo<''>;
+    encryptedKey: Schema.Attribute.Text &
+      Schema.Attribute.SetMinMaxLength<{
+        minLength: 1;
+      }>;
     expiresAt: Schema.Attribute.DateTime;
     lastUsedAt: Schema.Attribute.DateTime;
     lifespan: Schema.Attribute.BigInteger;
@@ -196,6 +200,63 @@ export interface AdminRole extends Struct.CollectionTypeSchema {
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
     users: Schema.Attribute.Relation<'manyToMany', 'admin::user'>;
+  };
+}
+
+export interface AdminSession extends Struct.CollectionTypeSchema {
+  collectionName: 'strapi_sessions';
+  info: {
+    description: 'Session Manager storage';
+    displayName: 'Session';
+    name: 'Session';
+    pluralName: 'sessions';
+    singularName: 'session';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  pluginOptions: {
+    'content-manager': {
+      visible: false;
+    };
+    'content-type-builder': {
+      visible: false;
+    };
+    i18n: {
+      localized: false;
+    };
+  };
+  attributes: {
+    absoluteExpiresAt: Schema.Attribute.DateTime & Schema.Attribute.Private;
+    childId: Schema.Attribute.String & Schema.Attribute.Private;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    deviceId: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.Private;
+    expiresAt: Schema.Attribute.DateTime &
+      Schema.Attribute.Required &
+      Schema.Attribute.Private;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<'oneToMany', 'admin::session'> &
+      Schema.Attribute.Private;
+    origin: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.Private;
+    publishedAt: Schema.Attribute.DateTime;
+    sessionId: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.Private &
+      Schema.Attribute.Unique;
+    status: Schema.Attribute.String & Schema.Attribute.Private;
+    type: Schema.Attribute.String & Schema.Attribute.Private;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    userId: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.Private;
   };
 }
 
@@ -382,20 +443,26 @@ export interface ApiArticleArticle extends Struct.CollectionTypeSchema {
   };
   attributes: {
     author: Schema.Attribute.Relation<'manyToOne', 'api::author.author'>;
+    BlogDate: Schema.Attribute.Date;
+    bookmarks: Schema.Attribute.Relation<'oneToMany', 'api::bookmark.bookmark'>;
     category: Schema.Attribute.Relation<'manyToOne', 'api::category.category'>;
     comments: Schema.Attribute.Relation<'oneToMany', 'api::comment.comment'>;
-    content: Schema.Attribute.RichText & Schema.Attribute.Required;
-    contentBn: Schema.Attribute.RichText;
+    content: Schema.Attribute.RichText &
+      Schema.Attribute.Required &
+      Schema.Attribute.CustomField<
+        'plugin::ckeditor5.CKEditor',
+        {
+          preset: 'defaultMarkdown';
+        }
+      >;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
-    excerpt: Schema.Attribute.Text & Schema.Attribute.Required;
-    excerptBn: Schema.Attribute.Text;
+    DisableComments: Schema.Attribute.Boolean &
+      Schema.Attribute.DefaultTo<false>;
     featuredImage: Schema.Attribute.Media<'images'>;
-    gallery: Schema.Attribute.Media<'images', true>;
-    isEditorsPick: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
-    isFeatured: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
-    isHero: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
+    InFeatured: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
+    InSlider: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
     language: Schema.Attribute.Enumeration<['en', 'bn', 'both']> &
       Schema.Attribute.Required &
       Schema.Attribute.DefaultTo<'en'>;
@@ -406,24 +473,28 @@ export interface ApiArticleArticle extends Struct.CollectionTypeSchema {
       'api::article.article'
     > &
       Schema.Attribute.Private;
-    metaDescription: Schema.Attribute.Text;
-    metaKeywords: Schema.Attribute.JSON;
-    metaTitle: Schema.Attribute.String;
+    publication_author_name: Schema.Attribute.String;
+    publication_issue: Schema.Attribute.Relation<
+      'manyToOne',
+      'api::publication-issue.publication-issue'
+    >;
     publishedAt: Schema.Attribute.DateTime;
-    readTime: Schema.Attribute.Integer;
     slug: Schema.Attribute.UID<'title'> & Schema.Attribute.Required;
-    socialImage: Schema.Attribute.Media<'images'>;
     storyState: Schema.Attribute.Enumeration<
       ['draft', 'published', 'archived', 'submitted', 'review']
     > &
       Schema.Attribute.Required &
       Schema.Attribute.DefaultTo<'published'>;
+    SubmitDate: Schema.Attribute.Date;
     tags: Schema.Attribute.Relation<'manyToMany', 'api::tag.tag'>;
     title: Schema.Attribute.String & Schema.Attribute.Required;
-    titleBn: Schema.Attribute.String;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
+    user_upload_file: Schema.Attribute.Relation<
+      'oneToOne',
+      'api::user-upload.user-upload'
+    >;
     viewCount: Schema.Attribute.Integer & Schema.Attribute.DefaultTo<0>;
   };
 }
@@ -441,6 +512,7 @@ export interface ApiAuthorAuthor extends Struct.CollectionTypeSchema {
   };
   attributes: {
     Avatar: Schema.Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
+    badge: Schema.Attribute.String;
     Bio: Schema.Attribute.RichText;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
@@ -464,10 +536,10 @@ export interface ApiAuthorAuthor extends Struct.CollectionTypeSchema {
   };
 }
 
-export interface ApiBannerBanner extends Struct.CollectionTypeSchema {
+export interface ApiBannerBanner extends Struct.SingleTypeSchema {
   collectionName: 'banners';
   info: {
-    description: 'Banners and announcements for the site';
+    description: '';
     displayName: 'Banner';
     pluralName: 'banners';
     singularName: 'banner';
@@ -476,29 +548,24 @@ export interface ApiBannerBanner extends Struct.CollectionTypeSchema {
     draftAndPublish: false;
   };
   attributes: {
-    backgroundColor: Schema.Attribute.String;
+    Active: Schema.Attribute.Boolean &
+      Schema.Attribute.Required &
+      Schema.Attribute.DefaultTo<false>;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
-    endDate: Schema.Attribute.DateTime;
-    headline: Schema.Attribute.String & Schema.Attribute.Required;
-    headlineBn: Schema.Attribute.String;
-    isActive: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<true>;
+    EndDate: Schema.Attribute.DateTime;
+    headline: Schema.Attribute.Text;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
       'oneToMany',
       'api::banner.banner'
     > &
       Schema.Attribute.Private;
-    postTitle: Schema.Attribute.String & Schema.Attribute.Required;
-    postTitleBn: Schema.Attribute.String;
-    postUrl: Schema.Attribute.String & Schema.Attribute.Required;
-    priority: Schema.Attribute.Integer & Schema.Attribute.DefaultTo<0>;
+    postTitle: Schema.Attribute.Text;
+    postUrl: Schema.Attribute.String;
     publishedAt: Schema.Attribute.DateTime;
-    startDate: Schema.Attribute.DateTime;
     subtitle: Schema.Attribute.Text;
-    subtitleBn: Schema.Attribute.Text;
-    textColor: Schema.Attribute.String;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -550,12 +617,9 @@ export interface ApiCategoryCategory extends Struct.CollectionTypeSchema {
     draftAndPublish: false;
   };
   attributes: {
-    color: Schema.Attribute.String;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
-    description: Schema.Attribute.Text;
-    Illustration: Schema.Attribute.Media<'images' | 'files'>;
     isActive: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<true>;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
@@ -564,11 +628,10 @@ export interface ApiCategoryCategory extends Struct.CollectionTypeSchema {
     > &
       Schema.Attribute.Private;
     Name: Schema.Attribute.String & Schema.Attribute.Required;
-    nameBn: Schema.Attribute.String;
+    nameBn: Schema.Attribute.String & Schema.Attribute.Required;
     nameEn: Schema.Attribute.String & Schema.Attribute.Required;
     publishedAt: Schema.Attribute.DateTime;
-    Slug: Schema.Attribute.UID<'Name'>;
-    sortOrder: Schema.Attribute.Integer & Schema.Attribute.DefaultTo<0>;
+    Slug: Schema.Attribute.UID<'nameEn'> & Schema.Attribute.Required;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -649,80 +712,171 @@ export interface ApiDraftDraft extends Struct.CollectionTypeSchema {
   };
 }
 
-export interface ApiNavigationItemNavigationItem
-  extends Struct.CollectionTypeSchema {
-  collectionName: 'navigation-items';
+export interface ApiMailMail extends Struct.CollectionTypeSchema {
+  collectionName: 'mails';
   info: {
-    description: 'Navigation items for header menu';
-    displayName: 'Navigation Item';
-    pluralName: 'navigation-items';
-    singularName: 'navigation-item';
+    displayName: 'Mail';
+    pluralName: 'mails';
+    singularName: 'mail';
   };
   options: {
-    draftAndPublish: false;
+    draftAndPublish: true;
   };
   attributes: {
+    content: Schema.Attribute.RichText &
+      Schema.Attribute.CustomField<
+        'plugin::ckeditor5.CKEditor',
+        {
+          preset: 'defaultHtml';
+        }
+      >;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
-    href: Schema.Attribute.String & Schema.Attribute.Required;
-    isActive: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<true>;
-    isExternal: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
-    localizations: Schema.Attribute.Relation<
-      'oneToMany',
-      'api::navigation-item.navigation-item'
-    > &
+    localizations: Schema.Attribute.Relation<'oneToMany', 'api::mail.mail'> &
       Schema.Attribute.Private;
-    openInNewTab: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
     publishedAt: Schema.Attribute.DateTime;
-    sortOrder: Schema.Attribute.Integer & Schema.Attribute.DefaultTo<0>;
-    title: Schema.Attribute.String & Schema.Attribute.Required;
-    titleBn: Schema.Attribute.String;
+    receiver: Schema.Attribute.Text & Schema.Attribute.Required;
+    subject: Schema.Attribute.String & Schema.Attribute.Required;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
   };
 }
 
-export interface ApiSubmissionSubmission extends Struct.CollectionTypeSchema {
-  collectionName: 'submissions';
+export interface ApiPublicationIssuePublicationIssue
+  extends Struct.CollectionTypeSchema {
+  collectionName: 'publication_issues';
   info: {
-    description: 'User blog post submissions for review';
-    displayName: 'Submission';
-    pluralName: 'submissions';
-    singularName: 'submission';
+    description: '';
+    displayName: 'Publication_Issue';
+    pluralName: 'publication-issues';
+    singularName: 'publication-issue';
   };
   options: {
     draftAndPublish: false;
   };
   attributes: {
-    content: Schema.Attribute.RichText & Schema.Attribute.Required;
+    CoverDesigner: Schema.Attribute.String;
+    CoverImage: Schema.Attribute.Media<'images'> & Schema.Attribute.Required;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
-    excerpt: Schema.Attribute.Text & Schema.Attribute.Required;
-    featuredImage: Schema.Attribute.Media<'images'>;
-    language: Schema.Attribute.Enumeration<['en', 'bn', 'both']> &
-      Schema.Attribute.Required &
-      Schema.Attribute.DefaultTo<'en'>;
+    Designer: Schema.Attribute.String;
+    Editor: Schema.Attribute.String;
+    Editorial: Schema.Attribute.RichText &
+      Schema.Attribute.CustomField<
+        'plugin::ckeditor5.CKEditor',
+        {
+          preset: 'defaultMarkdown';
+        }
+      >;
+    Imprint: Schema.Attribute.String;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
       'oneToMany',
-      'api::submission.submission'
+      'api::publication-issue.publication-issue'
     > &
       Schema.Attribute.Private;
+    PageNumber: Schema.Attribute.String;
+    pieces: Schema.Attribute.Relation<'oneToMany', 'api::article.article'>;
+    Price: Schema.Attribute.String;
+    publication: Schema.Attribute.Relation<
+      'manyToOne',
+      'api::publication.publication'
+    >;
     publishedAt: Schema.Attribute.DateTime;
-    reviewedAt: Schema.Attribute.DateTime;
-    reviewNotes: Schema.Attribute.Text;
-    slug: Schema.Attribute.UID<'title'> & Schema.Attribute.Required;
-    storyState: Schema.Attribute.Enumeration<
-      ['submitted', 'under_review', 'approved', 'rejected', 'published']
-    > &
+    PublishedDate: Schema.Attribute.Date & Schema.Attribute.Required;
+    TableOfContents: Schema.Attribute.RichText &
+      Schema.Attribute.CustomField<
+        'plugin::ckeditor5.CKEditor',
+        {
+          preset: 'defaultMarkdown';
+        }
+      >;
+    Title: Schema.Attribute.String & Schema.Attribute.Required;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    Year: Schema.Attribute.String;
+  };
+}
+
+export interface ApiPublicationPublication extends Struct.CollectionTypeSchema {
+  collectionName: 'publications';
+  info: {
+    description: '';
+    displayName: 'Publication';
+    pluralName: 'publications';
+    singularName: 'publication';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  attributes: {
+    Color: Schema.Attribute.String &
       Schema.Attribute.Required &
-      Schema.Attribute.DefaultTo<'submitted'>;
-    submittedAt: Schema.Attribute.DateTime & Schema.Attribute.Required;
-    title: Schema.Attribute.String & Schema.Attribute.Required;
+      Schema.Attribute.CustomField<'plugin::color-picker.color'>;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    Description: Schema.Attribute.RichText &
+      Schema.Attribute.CustomField<
+        'plugin::ckeditor5.CKEditor',
+        {
+          preset: 'defaultMarkdown';
+        }
+      >;
+    HasVolumes: Schema.Attribute.Boolean & Schema.Attribute.Required;
+    Hide: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
+    Image: Schema.Attribute.Media<'images'>;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::publication.publication'
+    > &
+      Schema.Attribute.Private;
+    publication_issues: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::publication-issue.publication-issue'
+    >;
+    publishedAt: Schema.Attribute.DateTime;
+    ShowInHome: Schema.Attribute.Boolean &
+      Schema.Attribute.Required &
+      Schema.Attribute.DefaultTo<false>;
+    TitleBangla: Schema.Attribute.String & Schema.Attribute.Required;
+    TitleEnglish: Schema.Attribute.String & Schema.Attribute.Required;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
+export interface ApiSocialLinkSocialLink extends Struct.CollectionTypeSchema {
+  collectionName: 'social_links';
+  info: {
+    displayName: 'SocialLink';
+    pluralName: 'social-links';
+    singularName: 'social-link';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    Link: Schema.Attribute.String & Schema.Attribute.Required;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::social-link.social-link'
+    > &
+      Schema.Attribute.Private;
+    Logo: Schema.Attribute.Media<'images'> & Schema.Attribute.Required;
+    Platform: Schema.Attribute.String & Schema.Attribute.Required;
+    publishedAt: Schema.Attribute.DateTime;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -750,6 +904,41 @@ export interface ApiTagTag extends Struct.CollectionTypeSchema {
     name: Schema.Attribute.String & Schema.Attribute.Required;
     publishedAt: Schema.Attribute.DateTime;
     slug: Schema.Attribute.UID<'name'> & Schema.Attribute.Required;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
+export interface ApiTermsAndConditionTermsAndCondition
+  extends Struct.SingleTypeSchema {
+  collectionName: 'terms_and_conditions';
+  info: {
+    displayName: 'terms&condition';
+    pluralName: 'terms-and-conditions';
+    singularName: 'terms-and-condition';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  attributes: {
+    Content: Schema.Attribute.RichText &
+      Schema.Attribute.CustomField<
+        'plugin::ckeditor5.CKEditor',
+        {
+          preset: 'defaultMarkdown';
+        }
+      >;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::terms-and-condition.terms-and-condition'
+    > &
+      Schema.Attribute.Private;
+    publishedAt: Schema.Attribute.DateTime;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -862,6 +1051,7 @@ export interface ApiUserRequestReportUserRequestReport
   extends Struct.CollectionTypeSchema {
   collectionName: 'user_request_reports';
   info: {
+    description: '';
     displayName: 'USER REQUEST-REPORT';
     pluralName: 'user-request-reports';
     singularName: 'user-request-report';
@@ -888,6 +1078,10 @@ export interface ApiUserRequestReportUserRequestReport
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
+    user: Schema.Attribute.Relation<
+      'oneToOne',
+      'plugin::users-permissions.user'
+    >;
   };
 }
 
@@ -903,6 +1097,7 @@ export interface ApiUserUploadUserUpload extends Struct.CollectionTypeSchema {
     draftAndPublish: false;
   };
   attributes: {
+    article: Schema.Attribute.Relation<'oneToOne', 'api::article.article'>;
     author: Schema.Attribute.Relation<'oneToOne', 'api::author.author'>;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
@@ -1180,12 +1375,13 @@ export interface PluginUploadFile extends Struct.CollectionTypeSchema {
     };
   };
   attributes: {
-    alternativeText: Schema.Attribute.String;
-    caption: Schema.Attribute.String;
+    alternativeText: Schema.Attribute.Text;
+    caption: Schema.Attribute.Text;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
     ext: Schema.Attribute.String;
+    focalPoint: Schema.Attribute.JSON;
     folder: Schema.Attribute.Relation<'manyToOne', 'plugin::upload.folder'> &
       Schema.Attribute.Private;
     folderPath: Schema.Attribute.String &
@@ -1205,7 +1401,7 @@ export interface PluginUploadFile extends Struct.CollectionTypeSchema {
       Schema.Attribute.Private;
     mime: Schema.Attribute.String & Schema.Attribute.Required;
     name: Schema.Attribute.String & Schema.Attribute.Required;
-    previewUrl: Schema.Attribute.String;
+    previewUrl: Schema.Attribute.Text;
     provider: Schema.Attribute.String & Schema.Attribute.Required;
     provider_metadata: Schema.Attribute.JSON;
     publishedAt: Schema.Attribute.DateTime;
@@ -1214,7 +1410,7 @@ export interface PluginUploadFile extends Struct.CollectionTypeSchema {
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
-    url: Schema.Attribute.String & Schema.Attribute.Required;
+    url: Schema.Attribute.Text & Schema.Attribute.Required;
     width: Schema.Attribute.Integer;
   };
 }
@@ -1387,6 +1583,7 @@ export interface PluginUsersPermissionsUser
         maxLength: 500;
       }>;
     blocked: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
+    bookmarks: Schema.Attribute.Relation<'oneToMany', 'api::bookmark.bookmark'>;
     comments: Schema.Attribute.Relation<'oneToMany', 'api::comment.comment'>;
     confirmationToken: Schema.Attribute.String & Schema.Attribute.Private;
     confirmed: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
@@ -1399,6 +1596,7 @@ export interface PluginUsersPermissionsUser
       Schema.Attribute.SetMinMaxLength<{
         minLength: 6;
       }>;
+    fullName: Schema.Attribute.String;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
       'oneToMany',
@@ -1437,6 +1635,7 @@ declare module '@strapi/strapi' {
       'admin::api-token-permission': AdminApiTokenPermission;
       'admin::permission': AdminPermission;
       'admin::role': AdminRole;
+      'admin::session': AdminSession;
       'admin::transfer-token': AdminTransferToken;
       'admin::transfer-token-permission': AdminTransferTokenPermission;
       'admin::user': AdminUser;
@@ -1447,9 +1646,12 @@ declare module '@strapi/strapi' {
       'api::category.category': ApiCategoryCategory;
       'api::comment.comment': ApiCommentComment;
       'api::draft.draft': ApiDraftDraft;
-      'api::navigation-item.navigation-item': ApiNavigationItemNavigationItem;
-      'api::submission.submission': ApiSubmissionSubmission;
+      'api::mail.mail': ApiMailMail;
+      'api::publication-issue.publication-issue': ApiPublicationIssuePublicationIssue;
+      'api::publication.publication': ApiPublicationPublication;
+      'api::social-link.social-link': ApiSocialLinkSocialLink;
       'api::tag.tag': ApiTagTag;
+      'api::terms-and-condition.terms-and-condition': ApiTermsAndConditionTermsAndCondition;
       'api::text-reel-homepage.text-reel-homepage': ApiTextReelHomepageTextReelHomepage;
       'api::user-article-like.user-article-like': ApiUserArticleLikeUserArticleLike;
       'api::user-comment-like.user-comment-like': ApiUserCommentLikeUserCommentLike;

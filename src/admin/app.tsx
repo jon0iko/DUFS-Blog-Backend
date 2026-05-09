@@ -1,13 +1,7 @@
 import type { StrapiApp } from '@strapi/strapi/admin';
 import Dufs_Logo from './extensions/Dufs.png';
-import './extensions/custom.css';
-
-const colors = {
-  black: '#000000',
-  white: '#FFFFFF',
-  darkGrey: '#333333', // Example for light mode active state
-  lightGrey: '#f0f0f0', // Example for dark mode active state
-};
+import Dufs_Favicon from './extensions/favicon.png';
+import './app.css'; 
 
 export default {
   config: {
@@ -17,7 +11,7 @@ export default {
     menu: { 
       logo: Dufs_Logo,
     },
-    favicon: Dufs_Logo,
+    favicon: Dufs_Favicon,
     theme: {
       light: {
         colors: {
@@ -46,39 +40,60 @@ export default {
           warning500: '#FFC107',
         },
         fonts: {
-          someFontVariable: "'RobotoLightCustom', Arial, sans-serif",
+          someFontVariable: "'RobotoCustom', Arial, serif",
         },
       },
       dark: {
         colors: {
-          // Primary colors
-          primary100: '#464646', // Lighter version for hover/focus
-          primary200: '#666666',
-          primary500: '#FFFFFF', // white for dark mode
-          primary600: '#FFFFFF',
+          // Primary colors matched to DUFS brand
+          primary100: '#595657', // Accent shade
+          primary200: '#4A4649', // Secondary shade
+          primary500: '#FFFFFF', // White for primary text/buttons
+          primary600: '#F5F5F5', // Slight gray for hover
           primary700: '#FFFFFF',
           primary800: '#FFFFFF',
     
-          // Button styles
+          // Button styles - DUFS white buttons on dark background
           buttonPrimary500: '#FFFFFF',
-          buttonPrimary600: '#DDDDDD',
-          secondary500: '#666666',
-          secondary600: '#777777',
+          buttonPrimary600: '#E5E5E5',
+          secondary500: '#4A4649', // Dark secondary
+          secondary600: '#595657', // Slightly lighter secondary
           
-          // Button text colors
-          buttonNeutral0: '#121212', // Text on primary buttons
+          // Button text colors - black text on white buttons
+          buttonNeutral0: '#231F20', // DUFS black text on white buttons
     
-          neutral0: '#121212',       // Base background
-          neutral100: '#1E1E1E',     // Card/sidebar backgrounds
-          neutral200: '#2C2C2C',     // Input backgrounds
-          neutral500: '#BBBBBB',     // Secondary text
-          neutral800: '#E0E0E0',     // Main text
-          neutral900: '#FFFFFF',     // Strong emphasis text
+          // Base background - DUFS dark mode palette
+          neutral0: '#231F20',       // Base background (DUFS Black)
+          neutral25: '#282426',      // Slightly lighter black
+          neutral50: '#302C2E',      // Panel/box backgrounds
+          neutral75: '#3A3A3A',      // Tertiary level
+          neutral100: '#2B2729',     // Card/sidebar backgrounds
+          neutral150: '#353233',     // Additional level
+          neutral200: '#3A3A3A',     // Input backgrounds
+          neutral500: '#D9D9D9',     // Secondary text (lighter for readability)
+          neutral800: '#FFFFFF',     // Main text (white)
+          neutral900: '#FFFFFF',     // Strong emphasis text (white)
     
-          alternative100: '#333333',  // Hover background
-          alternative200: '#444444',  // Selected background - more visible
+          alternative100: '#3A3A3A',  // Hover background
+          alternative200: '#4A4649',  // Selected background - matches secondary
+          alternative500: '#595657',  // Alternative secondary
+          alternative600: '#6B6869',  // Alternative tertiary
+          alternative700: '#7D7A7C',  // Alternative quaternary
+          alternative900: '#FFFFFF',  // Alternative text
     
-          // Status indicators
+          // Form and input colors to override default blue
+          formInputBackground: '#3A3A3A',
+          formInputBorder: '#595657',
+          formInputText: '#FFFFFF',
+          formInputPlaceholder: '#B9B9B9',
+          formInputDisabled: '#2B2729',
+          
+          // Additional background overrides to prevent blue tint
+          boxShadow: '#000000',
+          textNeutral: '#FFFFFF',
+          inputBorder: '#595657',
+    
+          // Status indicators (unchanged for visibility)
           success500: '#4CAF50',
           danger500: '#F44336',
           warning500: '#FFC107',
@@ -92,7 +107,7 @@ export default {
           warning200: '#624A00',
         },
         fonts: {
-          someFontVariable: "'RobotoLightCustom', Arial, sans-serif",
+          someFontVariable: "'RobotoCustom', Arial, sans-serif",
         },
       }
     },
@@ -103,9 +118,9 @@ export default {
         'app.components.LeftMenu.navbrand.workplace.description': 'DUFS',
         'app.components.LeftMenu.navbrand.workplace.subtitle': 'DUFS',
         "HomePage.header.title": "You logged in as: {name}",
-        "HomePage.header.subtitle": "DUFS Blog Admin Panel",
+        "HomePage.header.subtitle": "Read the DOCS first! Collect from Publication Secretary.",
         "Auth.form.welcome.subtitle": "Better Film, Better Viewers",
-        "Auth.form.welcome.title": "DUFS Blog Admin Panel",
+        "Auth.form.welcome.title": "DUFS Blog Admin",
         "Auth.form.email.placeholder": "e.g. dhakauniversityfilmsociety@gmail.com",
         "Auth.form.button.login.strapi": "Login to DUFS Blog",
         "Auth.form.register.subtitle": "Credentials are only used to authenticate here. All saved data will be stored in your database.",
