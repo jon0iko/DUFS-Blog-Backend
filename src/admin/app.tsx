@@ -1,14 +1,7 @@
 import type { StrapiApp } from '@strapi/strapi/admin';
 import Dufs_Logo from './extensions/Dufs.png';
-import './extensions/custom.css';
-import { setPluginConfig, defaultMarkdownPreset } from '@_sh/strapi-plugin-ckeditor';
-
-const colors = {
-  black: '#000000',
-  white: '#FFFFFF',
-  darkGrey: '#333333', // Example for light mode active state
-  lightGrey: '#f0f0f0', // Example for dark mode active state
-};
+import Dufs_Favicon from './extensions/favicon.png';
+import './app.css'; 
 
 export default {
   config: {
@@ -18,7 +11,7 @@ export default {
     menu: { 
       logo: Dufs_Logo,
     },
-    favicon: Dufs_Logo,
+    favicon: Dufs_Favicon,
     theme: {
       light: {
         colors: {
@@ -47,7 +40,7 @@ export default {
           warning500: '#FFC107',
         },
         fonts: {
-          someFontVariable: "'RobotoLightCustom', Arial, sans-serif",
+          someFontVariable: "'RobotoCustom', Arial, serif",
         },
       },
       dark: {
@@ -114,7 +107,7 @@ export default {
           warning200: '#624A00',
         },
         fonts: {
-          someFontVariable: "'RobotoLightCustom', Arial, sans-serif",
+          someFontVariable: "'RobotoCustom', Arial, sans-serif",
         },
       }
     },
@@ -125,9 +118,9 @@ export default {
         'app.components.LeftMenu.navbrand.workplace.description': 'DUFS',
         'app.components.LeftMenu.navbrand.workplace.subtitle': 'DUFS',
         "HomePage.header.title": "You logged in as: {name}",
-        "HomePage.header.subtitle": "DUFS Blog Admin Panel",
+        "HomePage.header.subtitle": "Read the DOCS first! Collect from Publication Secretary.",
         "Auth.form.welcome.subtitle": "Better Film, Better Viewers",
-        "Auth.form.welcome.title": "DUFS Blog Admin Panel",
+        "Auth.form.welcome.title": "DUFS Blog Admin",
         "Auth.form.email.placeholder": "e.g. dhakauniversityfilmsociety@gmail.com",
         "Auth.form.button.login.strapi": "Login to DUFS Blog",
         "Auth.form.register.subtitle": "Credentials are only used to authenticate here. All saved data will be stored in your database.",

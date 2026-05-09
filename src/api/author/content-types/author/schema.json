@@ -10,6 +10,7 @@
   "options": {
     "draftAndPublish": false
   },
+  "pluginOptions": {},
   "attributes": {
     "Name": {
       "type": "string",
@@ -39,6 +40,9 @@
     },
     "Bio": {
       "type": "richtext"
+    },
+    "badge": {
+      "type": "string"
     }
   }
 }

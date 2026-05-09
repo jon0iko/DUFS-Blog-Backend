@@ -16,17 +16,19 @@
   },
   "dependencies": {
     "@_sh/strapi-plugin-ckeditor": "^7.1.0",
-    "@strapi/plugin-cloud": "5.12.3",
+    "@strapi/logger": "^5.42.0",
+    "@strapi/plugin-cloud": "5.41.1",
     "@strapi/plugin-color-picker": "^5.39.0",
-    "@strapi/plugin-users-permissions": "5.12.3",
+    "@strapi/plugin-users-permissions": "5.41.1",
     "@strapi/provider-email-nodemailer": "^5.40.0",
-    "@strapi/strapi": "5.12.3",
+    "@strapi/strapi": "5.41.1",
     "mysql2": "3.9.8",
     "react": "^18.0.0",
     "react-dom": "^18.0.0",
     "react-router-dom": "^6.0.0",
     "sharp": "0.34.5",
-    "styled-components": "^6.0.0"
+    "styled-components": "^6.0.0",
+    "winston-daily-rotate-file": "^5.0.0"
   },
   "devDependencies": {
     "@types/node": "^20",
